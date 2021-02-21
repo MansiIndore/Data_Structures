@@ -1,9 +1,5 @@
 ____________________________________CODE___________________________________
 ___________________________________________________________________________
-
-
-
-//CODE IS CORRECTLY RETURN BUT RUN ON ONLINE COMPILER AND NOT ON ECLIPSE SOME PROBLEM
 #include <iostream>
 using namespace std;
 
@@ -15,8 +11,8 @@ typedef struct node
 {
 	struct node* prev;
 	int data;
-	struct node* next;//self referential structure
-}NODE,*PNODE;// this are not variable nut neww name to struture struct node=NODE && struct node*=PNODE
+	struct node* next;
+}NODE,*PNODE;
 
 class DoublyCircular_LinkedList
 {
@@ -24,18 +20,18 @@ class DoublyCircular_LinkedList
 	struct node* head;
 	struct node* tail;
   public:
-	DoublyCircular_LinkedList();//constructtor
-	~DoublyCircular_LinkedList();//destructor
-	BOOL InsertFirst(int);        //1
+	DoublyCircular_LinkedList();
+	~DoublyCircular_LinkedList();
+	BOOL InsertFirst(int);       
 	void DisplayForward();
-	void DisplayBackward();       //2
-	BOOL InsertLast(int);         //3
-	int Count();                    //4
-	int ShowFirstOcc(int);         //5
-	BOOL DeleteFirst();            //6
-	BOOL DeleteLast();             //7
-	BOOL InsertAtPosition(int,int);//8
-	BOOL DeleteAtPosition(int);   //9
+	void DisplayBackward();       
+	BOOL InsertLast(int);        
+	int Count();                 
+	int ShowFirstOcc(int);       
+	BOOL DeleteFirst();          
+	BOOL DeleteLast();           
+	BOOL InsertAtPosition(int,int);
+	BOOL DeleteAtPosition(int);   
 };
 DoublyCircular_LinkedList::DoublyCircular_LinkedList()
 {
@@ -59,17 +55,17 @@ DoublyCircular_LinkedList::~DoublyCircular_LinkedList()
 BOOL DoublyCircular_LinkedList::InsertFirst(int value)
 {
 	    PNODE newnode=NULL;
-		newnode=new NODE;//creating struct consisting node and newnode in pointing to that structure
+		newnode=new NODE;
 		if(newnode==NULL)
 		{
 			return FALSE;
 		}
 		newnode->data=value;
-		newnode->next=NULL;//inserting data in structure
+		newnode->next=NULL;
 		newnode->prev=NULL;
 		if((head==NULL)&&(tail==NULL))
 				{
-					tail=head=newnode;// i.e the very first element of linked list
+					tail=head=newnode;
 					tail->next=head;
 					head->prev=tail;
 				}
@@ -86,18 +82,18 @@ BOOL DoublyCircular_LinkedList::InsertFirst(int value)
 BOOL DoublyCircular_LinkedList::InsertLast(int value)
 {
 	PNODE newnode=NULL;
-		newnode=new NODE;//creating struct consisting node and newnode in pointing to that structure
+		newnode=new NODE;
 
 		if(newnode==NULL)
 			{
 				return FALSE;
 			}
 		newnode->data=value;
-		newnode->next=NULL;//inserting data in structure
+		newnode->next=NULL;
 		newnode->prev=NULL;
 		if((head==NULL)&&(tail==NULL))
 		{
-		 tail=head=newnode;// i.e the very first element of linked list
+		 tail=head=newnode;
 		 tail->next=head;
 		 head->prev=tail;
 		}
