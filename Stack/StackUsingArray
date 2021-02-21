@@ -1,1 +1,114 @@
 
+#include <iostream>
+using namespace std;
+#define SIZE 5
+
+class stack
+{
+	int arr[SIZE];
+	int top;
+public:
+	stack();
+	int IsFull();
+	int IsEmpty();
+	void push();
+	void pop();
+	void display();
+	int gettop();
+};
+stack::stack()
+{
+	top=-1;
+}
+int stack::IsFull()
+{
+	if(top==SIZE-1)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+int stack::IsEmpty()
+{
+	if(top==-1)
+	{
+		return 1;
+	}
+	else
+	{
+	   return 0;
+	}
+}
+void stack::push()
+{
+	int ch=0;
+	do
+	{
+	if(!IsFull())
+	{
+		int no;
+		cout<<"ENTER DATA"<<endl;
+		cin>>no;
+	    arr[++top]=no;
+	}
+	else
+	{
+		cout<<"STACK OVERFLOW!!"<<endl;
+		break;
+	}
+	cout<<"PRESS 1 TO CONTINUE ELSE PRESS ZERO"<<endl;
+	cin>>ch;
+	}while(ch==1);
+}
+void stack::pop(){
+	int ch=0;
+	do
+	{
+	if(!IsEmpty())
+	{
+		cout<<arr[top--]<<" POPED!!"<<endl;
+	}
+	else
+	{
+		cout<<"STACK IS EMPTY"<<endl;
+		break;
+	}
+	cout<<"PRESS 1 TO CONTINUE ELSE PRESS ZERO"<<endl;
+	cin>>ch;
+   }while(ch==1);
+}
+void stack::display()
+{
+	int i=0;
+	cout<<"MEMBERS OF STACK ARE:"<<endl;
+	for(i=top;i>=0;i--)
+	{
+		cout<<arr[i]<<" ";
+	}
+	cout<<endl;
+}
+int stack::gettop()
+{
+	cout<<"TOP OF STACK IS:"<<endl;
+	return arr[top];
+}
+int main()
+{
+	stack call;
+	cout<<"------------------------------"<<endl;
+	cout<<"STACK USING ARRAY"<<endl;
+	cout<<"------------------------------"<<endl;
+	call.push();
+	cout<<"------------------------------"<<endl;
+	call.display();
+	cout<<"------------------------------"<<endl;
+	int no=call.gettop();
+	cout<<no<<endl;
+	cout<<"------------------------------"<<endl;
+	call.pop();
+	cout<<"------------------------------"<<endl;
+	return 0;
+}
