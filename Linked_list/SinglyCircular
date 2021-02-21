@@ -1,1 +1,337 @@
+________________________________________CODE______________________________________________
+__________________________________________________________________________________________
+#include <iostream>
+using namespace std;
+
+typedef int BOOL;
+#define TRUE 1
+#define FALSE 0
+
+typedef struct node
+{
+	int data;
+	struct node* next;//self referential structure
+}NODE,*PNODE;// this are not variable nut neww name to struture struct node=NODE && struct node*=PNODE
+
+class SinglyCircular_LinkedList
+{
+  private:
+	PNODE head,tail;
+  public:
+	SinglyCircular_LinkedList();//constructtor
+	~SinglyCircular_LinkedList();//destructor
+	BOOL InsertFirst(int);        //1
+	void Display();                 //2
+	BOOL InsertLast(int);         //3
+	int Count();                    //4
+	int ShowFirstOcc(int);         //5
+	BOOL DeleteFirst();            //6
+	BOOL DeleteLast();             //7
+	BOOL InsertAtPosition(int,int);//8
+	BOOL DeleteAtPosition(int);   //9
+};
+SinglyCircular_LinkedList::SinglyCircular_LinkedList()
+{
+	tail=head=NULL;
+}
+SinglyCircular_LinkedList::~SinglyCircular_LinkedList()
+{
+	PNODE temp,navigate;
+	if(head!=NULL)
+	{
+		navigate=head;
+		while(navigate!=NULL)
+		{
+			temp=navigate->next;
+			delete navigate;
+			navigate=temp;
+		}
+	}
+}
+BOOL SinglyCircular_LinkedList::InsertFirst(int value)
+{
+	    PNODE newnode=NULL;
+		newnode=new NODE;//creating struct consisting node and newnode in pointing to that structure
+		if(newnode==NULL)
+		{
+			return FALSE;
+		}
+		newnode->data=value;
+		newnode->next=NULL;//inserting data in structure
+		if((head==NULL)&&(tail==NULL))
+		{
+			tail=head=newnode;// i.e the very first element of linked list
+			tail->next=head;
+		}
+		else
+		{
+		   newnode->next=(head);
+		   head=newnode;
+		   tail->next=head;
+		}
+		return TRUE;
+}
+BOOL SinglyCircular_LinkedList::InsertLast(int value)
+{
+	PNODE newnode=NULL;
+		newnode=new NODE;//creating struct consisting node and newnode in pointing to that structure
+
+		if(newnode==NULL)
+			{
+				return FALSE;
+			}
+		newnode->data=value;
+		newnode->next=NULL;//inserting data in structure
+
+		if(head==NULL&&tail==NULL)
+		{
+			return FALSE;
+		}
+		else
+		{
+			tail->next=newnode;
+			tail=newnode;
+			tail->next=head;
+		}
+		return TRUE;
+}
+void SinglyCircular_LinkedList::Display()
+{
+	PNODE temp1=head,temp2=tail;
+	if((head!=NULL)&&(tail!=NULL))
+		{
+		do
+		{
+			printf("%d\n",temp1->data);
+			temp1=temp1->next;
+		}while(temp2->next!=temp1);
+		}
+		else
+		{
+			printf("NODE NOT AVAILABEL");
+		}
+}
+int SinglyCircular_LinkedList::Count()
+{
+	PNODE temp1=head,temp2=tail;
+	int count=0;
+		if((head!=NULL)&&(tail!=NULL))
+			{
+			do
+			{
+				count++;
+				temp1=temp1->next;
+			}while(temp2->next!=temp1);
+			}
+			return count;
+}
+int SinglyCircular_LinkedList::ShowFirstOcc(int value)
+{
+	PNODE temp1=head,temp2=tail;
+
+			if((head!=NULL)&&(tail!=NULL))
+				{int count=0;
+				do
+				{
+					count++;
+					if(value==temp1->data)
+					{
+						return count;
+					}
+					temp1=temp1->next;
+				}while(temp2->next!=temp1);
+				}
+				return 0;
+}
+BOOL SinglyCircular_LinkedList::DeleteFirst()
+{
+	if(head==NULL&&tail==NULL)
+		{
+			return FALSE;
+		}
+	else if(head->next==NULL)
+		{
+			delete head;
+			tail=head=NULL;
+		}
+		else
+		{
+		head=(head)->next;//changing address of original address to new next address
+		delete tail->next;
+		tail->next=head;
+		}
+		return TRUE;
+}
+BOOL SinglyCircular_LinkedList::DeleteLast()
+{
+	if((head==NULL)&&(tail==NULL))
+			{
+				return FALSE;
+			}
+		else if(head==tail)
+			{
+				delete head;
+				tail=head=NULL;
+			}
+			else
+			{
+			PNODE temp=head;
+			while(temp->next!=tail)
+			{
+				temp=temp->next;
+			}
+			delete tail;
+			tail=temp;
+			tail->next=head;
+			}
+			return TRUE;
+}
+BOOL SinglyCircular_LinkedList::InsertAtPosition(int value,int position)
+{
+	if(position<=0)// if position is negative or zero
+		{
+			return FALSE;
+		}
+		else if(position==1)// if entered position is first
+		{
+			InsertFirst(value);
+		}
+		else if(position==Count()+1)// if entered position is last
+	    {
+			InsertLast(value);
+		}
+		else if(position>Count()+1)
+			{
+				return FALSE;
+			}
+		else
+		{
+			PNODE newnode=NULL;
+			newnode=new NODE; // memory allocation for a new node
+			if(newnode==NULL)
+					{
+						return FALSE;
+					}
+			newnode->data=value;
+			newnode->next=NULL;     // initializing node
+			PNODE temp=head;
+			while((position-1)!=1)   //position-1 to stop before the actuall position
+			{
+				temp=temp->next;
+				position--;
+			}
+			newnode->next=temp->next;// sequence matters or data will be lost
+			(temp->next)=newnode;
+		}
+		return TRUE;
+}
+BOOL SinglyCircular_LinkedList::DeleteAtPosition(int position)
+{
+	if(position<=0)// if position is negative or zero
+		{
+			return FALSE;
+		}
+		else if(position==1)// if entered position is first
+		{
+			DeleteFirst();
+		}
+		else if(position==Count())// if entered position is last
+	    {
+			DeleteLast();
+		}
+		else if(position>Count()+1)
+			{
+				return FALSE;
+			}
+		else
+		{
+			PNODE temp1=head,temp2=NULL;
+			while((position-1)!=1)   //position-1 to stop before the actual position
+					{
+						temp1=temp1->next;
+						position--;
+					}
+			temp2=temp1->next;// preserving address of the which is to be deleted so that we don't miss on it
+			temp1->next=temp1->next->next;//pointing node 2 to node 4 if node 3 is to deleted
+			delete (temp2);// deleting node 3
+		}
+		return TRUE;
+}
+int main()
+{
+	 setbuf(stdout,NULL);
+	 SinglyCircular_LinkedList obj;
+	 cout<<"------------------------------------------------------"<<endl;
+	 cout<<"           ~SINGLY CIRCULAR LINKED LIST (C++)~"<<endl;
+	 cout<<"------------------------------------------------------"<<endl;
+	 obj.InsertFirst(51);
+	 obj.InsertFirst(41);
+     obj.InsertFirst(31);
+	 obj.InsertFirst(21);
+	 obj.InsertFirst(11);
+	 cout<<"ELEMENTS SUCCESSFULLY INSERTED"<<endl;
+	 cout<<"ELEMENTS OF LINKED LIST:"<<endl;
+	 obj.Display();
+	 cout<<"------------------------------------------------------"<<endl;
+	 obj.InsertLast(61);
+	 cout<<"NEW NODE ENTERED SUCCESSFULLY"<<endl;
+     cout<<"UPDATED LINKED LIST:"<<endl;
+	 obj.Display();
+	 cout<<"------------------------------------------------------"<<endl;
+	 int ret=obj.Count();
+	 cout<<"TOTAL NUMBER OF ELEMENTS ARE:"<<ret<<endl;
+	 cout<<"------------------------------------------------------"<<endl;
+	 ret=obj.ShowFirstOcc(41);
+	 cout<<"POSITION OF ENTERED ELEMENT IS:"<<ret<<endl;
+	 cout<<"------------------------------------------------------"<<endl;
+	 ret=obj.DeleteFirst();
+	 if(ret==0)
+	 	{
+	 		cout<<"ELEMENT COULD NOT BE DELETED. LIST UNAVAILABEL\n";
+	 	}
+	 else
+	 	{
+	 		cout<<"FIRST ELEMENT DELETED SUCCEFULLY.\n";
+	 	}
+	 cout<<"UPDATED LINKED LIST:\n";
+	 obj.Display();
+	 cout<<"------------------------------------------------------\n";
+   ret=obj.DeleteLast();
+	 if(ret==0)
+	 	{
+	 		cout<<"ELEMENT COULD NOT BE DELETED. LIST UNAVAILABEL\n\n";
+		}
+	 else
+	 	{
+	 		cout<<"LAST ELEMENT DELETED SUCCESSFULLY\n";
+	 	}
+	 cout<<"UPDATED LINKED LIST:\n";
+	 obj.Display();
+   	 cout<<"------------------------------------------------------\n";
+   	 ret=obj.InsertAtPosition(100,2);
+   	 if(ret==0)
+   		{
+   		 	cout<<"INVALID POSITION\n\n";
+   		}
+   	 else
+   		{
+   		    cout<<"ELEMENT INSERTED SUCCESSFULLY\n";
+   		 }
+   	 cout<<"UPDATED LINKED LIST:\n";
+   	 obj.Display();
+   	 cout<<"------------------------------------------------------\n";
+   	 ret=obj.DeleteAtPosition(2);
+   	 if(ret==0)
+   	   	{
+   	   	 	cout<<"INVALID POSITION\n\n";
+   	   	}
+   	 else
+   	   	{
+   	   	   cout<<"ELEMENT DELETED SUCCESSFULLY\n";
+   	    }
+   	 cout<<"UPDATED LINKED LIST:\n";
+   	 obj.Display();
+   	 cout<<"------------------------------------------------------\n";
+	 return 0;
+}
 
