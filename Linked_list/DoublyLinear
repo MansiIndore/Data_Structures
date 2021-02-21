@@ -9,25 +9,25 @@ typedef struct node
 {
 	struct node* prev;
 	int data;
-	struct node* next;//self referential structure
-}NODE,*PNODE;// this are not variable nut neww name to struture struct node=NODE && struct node*=PNODE
+	struct node* next;
+}NODE,*PNODE;
 class DoublyLinear_LinkedList
 {
   private:
 	struct node* head;
   public:
-	DoublyLinear_LinkedList();//constructtor
-	~DoublyLinear_LinkedList();//destructor
-	BOOL InsertFirst(int);        //1
+	DoublyLinear_LinkedList();
+	~DoublyLinear_LinkedList();
+	BOOL InsertFirst(int);        
 	void DisplayForward();
-	void DisplayBackward();       //2
-	BOOL InsertLast(int);         //3
-	int Count();                    //4
-	int ShowFirstOcc(int);         //5
-	BOOL DeleteFirst();            //6
-	BOOL DeleteLast();             //7
-	BOOL InsertAtPosition(int,int);//8
-	BOOL DeleteAtPosition(int);   //9
+	void DisplayBackward();       
+	BOOL InsertLast(int);         
+	int Count();                  
+	int ShowFirstOcc(int);        
+	BOOL DeleteFirst();            
+	BOOL DeleteLast();             
+	BOOL InsertAtPosition(int,int);
+	BOOL DeleteAtPosition(int);   
 };
 DoublyLinear_LinkedList::DoublyLinear_LinkedList()
 {
@@ -50,18 +50,18 @@ DoublyLinear_LinkedList::~DoublyLinear_LinkedList()
 BOOL DoublyLinear_LinkedList::InsertFirst(int value)
 {
 	    PNODE newnode=NULL;
-		newnode=new NODE;//creating struct consisting node and newnode in pointing to that structure
+		newnode=new NODE;
 		if(newnode==NULL)
 		{
 			return FALSE;
 		}
 		newnode->data=value;
-		newnode->next=NULL;//inserting data in structure
+		newnode->next=NULL;
 		newnode->prev=NULL;
 		if(head==NULL)
 		{
-			head=newnode;// i.e the very first element of linked list
-		}
+			head=newnode;
+			}
 		else
 		{
 		   newnode->next=(head);
@@ -73,14 +73,14 @@ BOOL DoublyLinear_LinkedList::InsertFirst(int value)
 BOOL DoublyLinear_LinkedList::InsertLast(int value)
 {
 	PNODE newnode=NULL;
-		newnode=new NODE;//creating struct consisting node and newnode in pointing to that structure
+		newnode=new NODE;
 
 		if(newnode==NULL)
 			{
 				return FALSE;
 			}
 		newnode->data=value;
-		newnode->next=NULL;//inserting data in structure
+		newnode->next=NULL;
 		newnode->prev=NULL;
 		if(head==NULL)
 		{
@@ -89,7 +89,7 @@ BOOL DoublyLinear_LinkedList::InsertLast(int value)
 		else
 		{
 			PNODE temp=(head);
-			while(temp->next!=NULL)// used temp not first cause if traverse using first then data will be lost
+			while(temp->next!=NULL)
 			{
 			temp=temp->next;
 			}
@@ -161,7 +161,7 @@ BOOL DoublyLinear_LinkedList::DeleteFirst()
 		}
 		else
 		{
-		head=(head)->next;//changing address of original address to new next address
+		head=(head)->next;
 		delete head->prev;
 		head->prev=NULL;
 		}
