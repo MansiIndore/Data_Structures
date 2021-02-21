@@ -11,13 +11,13 @@ typedef int BOOL;
 class node
 {
 	int data;
-	struct node* next;//self referential structure
+	node* next;//self referential class
 	friend class SinglyLinear_LinkedList;
 };
 class SinglyLinear_LinkedList
 {
   private:
-	struct node* head;
+       node* head;
   public:
 	SinglyLinear_LinkedList();//constructtor
 	~SinglyLinear_LinkedList();//destructor
