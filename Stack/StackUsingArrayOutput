@@ -1,1 +1,34 @@
-
+______________________OUTPUT_________________________
+-------------------------------------
+STACK USING ARRAY
+-------------------------------------
+ENTER DATA
+10
+PRESS 1 TO CONTINUE ELSE PRESS ZERO
+1
+ENTER DATA
+20
+PRESS 1 TO CONTINUE ELSE PRESS ZERO
+1
+ENTER DATA
+30
+PRESS 1 TO CONTINUE ELSE PRESS ZERO
+0
+-------------------------------------
+MEMBERS OF STACK ARE:
+30 20 10 
+-------------------------------------
+TOP OF STACK IS:
+30
+-------------------------------------
+30 POPED!!
+PRESS 1 TO CONTINUE ELSE PRESS ZERO
+1
+20 POPED!!
+PRESS 1 TO CONTINUE ELSE PRESS ZERO
+1
+10 POPED!!
+PRESS 1 TO CONTINUE ELSE PRESS ZERO
+1
+STACK IS EMPTY
+-------------------------------------
