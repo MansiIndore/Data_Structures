@@ -1,1 +1,31 @@
 
+-------------------------------------
+STACK USING ARRAY
+-------------------------------------
+ENTER DATA:-
+10
+PRESS 1 TO CONTINUE ELSE PRESS 0
+1
+ENTER DATA:-
+20
+PRESS 1 TO CONTINUE ELSE PRESS 0
+1
+ENTER DATA:-
+30
+PRESS 1 TO CONTINUE ELSE PRESS 0
+0
+-------------------------------------
+TOP OF STACK IS
+30
+-------------------------------------
+30 POPPED!!
+PRESS 1 TO CONTINUE ELSE PRESS ZERO
+1
+20 POPPED!!
+PRESS 1 TO CONTINUE ELSE PRESS ZERO
+1
+10 POPPED!!
+PRESS 1 TO CONTINUE ELSE PRESS ZERO
+1
+LINKED LIST IS EMPTY!!
+
