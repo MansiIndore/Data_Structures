@@ -1,1 +1,308 @@
+__________________________________CODE__________________________________________
+________________________________________________________________________________
+
+#include <iostream>
+using namespace std;
+
+typedef int BOOL;
+#define TRUE 1
+#define FALSE 0
+
+class node
+{
+	int data;
+	struct node* next;//self referential structure
+	friend class SinglyLinear_LinkedList;
+};
+class SinglyLinear_LinkedList
+{
+  private:
+	struct node* head;
+  public:
+	SinglyLinear_LinkedList();//constructtor
+	~SinglyLinear_LinkedList();//destructor
+	BOOL insertFirst(int);
+	void display();
+	BOOL insertLast(int);
+	int count();
+	void showFirstOcc(int);
+	BOOL deleteFirst();
+	BOOL deleteLast();
+	BOOL insertAtPosition(int,int);
+	BOOL deleteAtPosition(int);
+};
+SinglyLinear_LinkedList::SinglyLinear_LinkedList()
+{
+	head=NULL;
+}
+SinglyLinear_LinkedList::~SinglyLinear_LinkedList()
+{
+	node *temp,*navigate;
+	if(head!=NULL)
+	{
+		navigate=head;
+		while(navigate!=NULL)
+		{
+			temp=navigate->next;
+			delete navigate;
+			navigate=temp;
+		}
+	}
+}
+BOOL SinglyLinear_LinkedList::insertFirst(int data)
+{
+		node* newnode=new node;
+		if(newnode==NULL)
+		{
+			return FALSE;
+		}
+		newnode->data=data;
+		newnode->next=NULL;
+		if(head==NULL)//if first node is to inserted in linked list
+		{
+			head=newnode;
+		}
+		else
+		{
+		   newnode->next=(head);
+		   head=newnode;
+		}
+		return TRUE;
+}
+BOOL SinglyLinear_LinkedList::insertLast(int data)
+{
+	node* newnode=NULL;
+		newnode=new node;//creating struct consisting node and newnode in pointing to that structure
+
+		if(newnode==NULL)
+			{
+				return FALSE;
+			}
+		newnode->data=data;
+		newnode->next=NULL;//inserting data in structure
+
+		if(head==NULL)
+		{
+			head=newnode;
+		}
+		else
+		{
+			node* temp=(head);
+			while(temp->next!=NULL)// used temp not first cause if traverse using first then data will be lost
+			{
+			temp=temp->next;
+			}
+			temp->next=newnode;
+		}
+		return TRUE;
+}
+void SinglyLinear_LinkedList::display()
+{
+	node* temp=head;
+	while(temp!=NULL)
+	{
+		cout<<temp->data<<endl;
+		temp=temp->next;
+	}
+	return;
+}
+int SinglyLinear_LinkedList::count()
+{
+
+	if(head==NULL)
+		{
+			return -1;
+		}
+	int count=0;
+		node* temp=head;
+		while(temp!=NULL)
+		{
+			count++;
+			temp=temp->next;
+		}
+		return count;
+}
+void SinglyLinear_LinkedList::showFirstOcc(int value)
+{
+
+	if(head==NULL)
+	{
+		cout<<"NO NODES AVAILABEL!!"<<endl;
+		return;
+	}
+	int count=0;
+	node* temp=head;
+		while(temp!=NULL)
+		{
+			count++;
+			if(value==temp->data)
+			{
+				break;
+			}
+			temp=temp->next;
+		}
+	cout<<value<<" FOUND AT POSITION:"<<count<<endl;
+}
+BOOL SinglyLinear_LinkedList::deleteFirst()
+{
+	if(head==NULL)
+		{
+			return FALSE;
+		}
+	else if(head->next==NULL)
+		{
+			delete head;
+			head=NULL;
+		}
+		else
+		{
+		node* temp=head;
+		head=(head)->next;//changing address of original address to new next address
+		delete temp;
+		}
+		return TRUE;
+}
+BOOL SinglyLinear_LinkedList::deleteLast()
+{
+	    if(head==NULL)
+			{
+				return FALSE;
+			}
+		else if(head->next==NULL)
+			{
+				delete head;
+				head=NULL;
+			}
+			else
+			{
+			node* temp=head;
+			while(temp->next->next!=NULL)
+			{
+				temp=temp->next;
+			}
+         	delete temp->next;
+	        temp->next=NULL;
+	        }
+		return TRUE;
+}
+BOOL SinglyLinear_LinkedList::insertAtPosition(int position,int data)
+{
+	if(position<=0)// if position is negative or zero
+		{
+			return FALSE;
+		}
+		else if(position==1)// if entered position is first
+		{
+			insertFirst(data);
+		}
+		else if(position==count()+1)// if entered position is last
+	    {
+			insertLast(data);
+		}
+		else if(position>count()+1)
+			{
+				return FALSE;
+			}
+		else
+		{
+			node* newnode=NULL;
+			newnode=new node ; // memory allocation for a new node
+			if(newnode==NULL)
+					{
+						return FALSE;
+					}
+			newnode->data=data;
+			newnode->next=NULL;     // initializing node
+			node* temp=head;
+			while((position-1)!=1)   //position-1 to stop before the actuall position
+			{
+				temp=temp->next;
+				position--;
+			}
+			newnode->next=temp->next;// sequence matters or data will be lost
+			(temp->next)=newnode;
+		}
+		return TRUE;
+}
+BOOL SinglyLinear_LinkedList::deleteAtPosition(int position)
+{
+	if(position<=0)// if position is negative or zero
+		{
+			return FALSE;
+		}
+		else if(position==1)// if entered position is first
+		{
+			deleteFirst();
+		}
+		else if(position==count())// if entered position is last
+	    {
+			deleteLast();
+		}
+		else if(position>count()+1)
+			{
+				return FALSE;
+			}
+		else
+		{
+			node *temp1=head, *temp2=NULL;
+			while((position-1)!=1)   //position-1 to stop before the actual position
+					{
+						temp1=temp1->next;
+						position--;
+					}
+			temp2=temp1->next;// preserving address of the which is to be deleted so that we don't miss on it
+			temp1->next=temp1->next->next;//pointing node 2 to node 4 if node 3 is to deleted
+			delete (temp2);// deleting node 3
+		}
+		return TRUE;
+}
+int main()
+{
+	  setbuf(stdout,NULL);
+	 SinglyLinear_LinkedList obj;
+	 cout<<"------------------------------------------------------"<<endl;
+	 cout<<"            SINGLY_LINEAR_LINEKD_LIST";
+	 cout<<"------------------------------------------------------"<<endl;
+	 obj.insertLast(10);
+	 obj.insertLast(20);
+	 obj.insertLast(30);
+	 obj.insertLast(40);
+	 obj.insertLast(50);
+	 cout<<"DATA IN LINKED LIST"<<endl;
+	 obj.display();
+	 cout<<"------------------------------------------------------"<<endl;
+	 obj.insertFirst(100);
+	 cout<<"DATA INSERTED AT FIRST POSITION"<<endl;
+	 obj.display();
+	 cout<<"------------------------------------------------------"<<endl;
+	 obj.deleteFirst();
+	 cout<<"FIRST ELEMENT DELETED SUCCESSFULLY!!"<<endl;
+	 obj.display();
+	 cout<<"------------------------------------------------------"<<endl;
+	 obj.deleteLast();
+	 cout<<"LAST ELEMENT DELETED SUCCESSFULLY!!"<<endl;
+	 obj.display();
+	 cout<<"------------------------------------------------------"<<endl;
+	 obj.insertAtPosition(4,400);
+	 cout<<"INSERTION AT GIVEN POSITION COMPLETE"<<endl;
+	 obj.display();
+	 cout<<"------------------------------------------------------"<<endl;
+	 obj.deleteAtPosition(4);
+	 cout<<"ELEMENT DELETED SUCCESSFULLY!!"<<endl;
+	 obj.display();
+	 cout<<"------------------------------------------------------"<<endl;
+	 obj.showFirstOcc(30);
+	 cout<<"------------------------------------------------------"<<endl;
+	 int ret=obj.count();
+	 if(ret==-1)
+	 {
+		 cout<<"NO NODES AVAILABLE!!"<<endl;
+	 }
+	 else
+	 {
+	 cout<<"TOTAL COUNT= "<<ret<<endl;
+	 }
+	 cout<<"------------------------------------------------------"<<endl;
+	 return 0;
+}
 
