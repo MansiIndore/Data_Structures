@@ -1,1 +1,26 @@
-
+//Class containing main method which is used to call the functions of tree creation and tree traversals
+//______________________________________________________________________________________________________
+public class CallingOperations 
+{
+	public static void main(String[] args) 
+	{
+		TreeOperations call=new TreeOperations();
+		System.out.println("-----------------------------------------------------------");
+		System.out.println("                    :TREE CREATION:");
+		System.out.println("-----------------------------------------------------------");
+		call.create();
+		System.out.println("-----------------------------------------------------------");
+		System.out.println("                 :INORDER TRAVERSAL:");
+		System.out.println("-----------------------------------------------------------");
+    call.inOrder();
+    System.out.println("-----------------------------------------------------------");
+		System.out.println("                 :PREORDER TRAVERSAL:");
+		System.out.println("-----------------------------------------------------------");
+    call.preOrder();
+    System.out.println("-----------------------------------------------------------");
+    System.out.println("                 :POSTORDER TRAVERSAL:");
+		System.out.println("-----------------------------------------------------------");
+    call.postOrder();
+    System.out.println("-----------------------------------------------------------");
+   }
+}
