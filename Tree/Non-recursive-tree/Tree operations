@@ -1,1 +1,128 @@
-
+import java.util.Scanner;
+import java.util.Stack;
+public class TreeOperations 
+{
+	
+	Scanner scan=new Scanner(System.in);
+    Node root;
+    StackCreated callf=new StackCreated();
+    Stack <Character>callf1=new Stack<Character>();//used for postorder traversal
+       //*******************************************************************************************************************
+       public void create()
+          {
+    	   char ch;
+    	   do
+    		{
+	        int data,ch1;
+	        Node newnode=new Node();
+	        System.out.println("ENTER DATA:");
+	        data=scan.nextInt();
+	        newnode.data=data;
+	        newnode.lchild=newnode.rchild=null;
+	   
+	        if(root==null)
+	          {
+		        root=newnode;
+		        System.out.println("DATA ENTERED IN ROOT NODE!!");
+	          }
+	        else  
+	         {
+		       Node temp=root;
+		       System.out.println("PRESS 1 TO INSERT ENTERED DATA IN LEFT CHILD");
+		       System.out.println("PRESS 2 TO INSERT ENTERED DATA IN RIGHT CHILD");
+		       ch1=scan.nextInt();
+		       if(ch1==1)
+		         {
+			       while(temp.lchild!=null)
+			         {
+				       temp=temp.lchild;
+			         }
+			       temp.lchild=newnode;
+		         }
+		       else
+		         {
+			       while(temp.rchild!=null)
+			         {
+				       temp=temp.rchild;
+			         }
+			       temp.rchild=newnode;
+		         }//inner else
+	          }//outter else
+	         System.out.println("PRESS 'Y' OR 'y' TO CONTINUE");
+	         ch=scan.next().charAt(0);
+          }while(ch =='Y' || ch =='y');
+      }//function close
+       //*******************************************************************************************************************
+      void inOrder()
+       {
+    	   if(root==null)
+    	   {
+    		   System.out.println("NO DATA AVAILABEL!!!");
+    		   return;
+    	   }
+    	   Node troot=root;
+    	   while(troot!=null || callf.head!=null)
+    	   {
+    		   while(troot!=null)
+    		   {
+    			   callf.push(troot);
+    			   troot=troot.lchild;
+    		   }
+    		   troot=callf.pop();
+    		   System.out.println(troot.data);
+    		   troot=troot.rchild;
+    	   }
+       }//function-close
+       //*******************************************************************************************************************
+      void preOrder()
+       {
+    	   if(root==null)
+    	   {
+    		   System.out.println("NO DATA AVAILABEL!!!");
+    		   return;
+    	   }
+    	   Node troot=root;
+    	   while(troot!=null || callf.head!=null)
+    	   {
+    		   while(troot!=null)
+    		   {
+    			   System.out.println(troot.data);
+    			   callf.push(troot);
+    			   troot=troot.lchild;
+    		   }
+    		   troot=callf.pop();
+    		   troot=troot.rchild;
+    	   }//while-close
+       }//function-close
+       //*******************************************************************************************************************
+      void postOrder()
+       {
+    	  if(root==null)
+   	       {
+   		   System.out.println("NO DATA AVAILABEL!!!");
+   		   return;
+   	       }
+    	   Node troot=root;
+    	   while(troot!=null || callf.head!=null || !callf1.empty())
+    	   {
+    		   while(troot!=null)
+    		   {
+    			   callf.push(troot);
+    			   callf1.push('L');
+    			   troot=troot.lchild;
+    		   }
+    		   troot=callf.pop();
+    		   if(callf1.pop()=='L')
+    		   {
+    			   callf.push(troot);
+    			   callf1.push('R');
+    			   troot=troot.rchild;
+    		   }
+    		   else
+    		   {
+    			   System.out.println(troot.data);
+    			   troot=null;
+    		   }
+     	   }//while-close
+       }//function-close
+}//class-close
