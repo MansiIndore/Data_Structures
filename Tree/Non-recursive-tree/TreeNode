@@ -1,1 +1,9 @@
+//Node for tree
+//______________
+public class Node 
+{
+  Node lchild;
+  int data;
+  Node rchild;
+}
 
