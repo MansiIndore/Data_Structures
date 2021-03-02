@@ -1,1 +1,7 @@
-
+//Node for stack
+//_______________
+public class NodeLL 
+{
+  Node adr;
+  NodeLL next;
+}
